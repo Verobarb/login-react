@@ -1,41 +1,64 @@
-import React from 'react';
-import logo from './logo.svg'; // Import your SVG image
-import './App.css';
-
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-
+import { useState } from "react";
+import "./App.css";
+import image from "./Fondol.png";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 function App() {
+  const [showLog, setShowLog] = useState(false);
+  const [showReg, setShowReg] = useState(false);
+
+  const handleRegClose = () => setShowReg(false);
+  const handleRegShow = () => setShowReg(true);
+
+  const handleLogClose = () => setShowLog(false);
+  const handleLogShow = () => setShowLog(true);
+
   return (
-    <Form>
-      <Form.Group className="mb-3" controlId="formBasicName">
-        <Form.Label>Nombres</Form.Label>
-        <Form.Control type="text" placeholder="Escribe Nombres" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicLastname">
-        <Form.Label>Apellidos</Form.Label>
-        <Form.Control type="text" placeholder="Escribe Apellidos" />
-     </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Correo</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label></Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Escribe contraseña" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
-    </Form>
+    <>
+      <div style={{ height: 700,backgroundImage:`url(${image})`,backgroundRepeat:"no-repeat",backgroundSize:"cover" }}>
+      <h1>SAQR</h1>
+      <Container> 
+        <Row>
+          <Col sm={4}>
+            <Button variant="primary" onClick={handleLogShow}>
+              Ingreso
+            </Button>
+          </Col>
+          <Col sm={4}>
+            <Button variant="primary" onClick={handleRegShow}>
+              Registrate
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+
+      <Modal show={showLog} onHide={handleLogClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Ingresar</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <Login />
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={showReg} onHide={handleRegClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Registro</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <Register />
+        </Modal.Body>
+      </Modal>
+      </div>
+
+    </>
   );
 }
 
