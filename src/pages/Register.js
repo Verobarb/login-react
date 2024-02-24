@@ -66,7 +66,7 @@ function Register() {
               <Form.Control
                 className="form-input"
                 type="password"
-                placeholder="Repetir contraseña"
+                placeholder="Confirmar contraseña"
               />
             </Form.Group>
             <Form.Group

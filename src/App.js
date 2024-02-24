@@ -1,5 +1,6 @@
 import { useState } from "react";
-import "./App.css";
+
+
 import image from "./Fondol.png";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -8,7 +9,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+
 
 function App() {
   const [showLog, setShowLog] = useState(false);
