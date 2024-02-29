@@ -1,65 +1,74 @@
-import "../App.css";
+import { useState } from "react";
+
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-
-
+import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function Login() {
+  const navigate = useHistory();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function handleChangeEmail(event) {
+    setEmail(event.target.value);
+  }
+
+  function handleChangePassword(event) {
+    setPassword(event.target.value);
+  }
+
   async function fetchExample() {
-    console.log("compli")
-    try {
-      const response = await fetch(`http://localhost/apisaqr?correo=nicole_veronica@hotmail.com&contrasena=1234`, {
-        'mode': 'cors',
-        'headers': {
-            'Access-Control-Allow-Origin': '*',
-        }
-    });
-      console.log(response)
-    } catch (error) {
-      console.log('Hubo un problema con la petición Fetch:' + error.message);
+    if (email.length > 0 && password.length > 0) {
+      const response = await fetch(
+        `http://localhost:8888/apisaqr/?correo=${email}&contrasena=${password}`
+      );
+      const data = await response.json();
+      const user = data.data;
+      if (user == null) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: data.mensaje,
+        });
+      } else {
+        navigate.replace("/dashboard", user);
+      }
+    } else {
+      Swal.fire({
+        title: "????",
+        text: "Faltan datos",
+        icon: "question",
+      });
     }
   }
-  
 
-  return ( 
+  return (
     <>
-    <Form>
-     <Form.Group className="mb-3 form-group" controlId="formBasicName">
-              <Form.Label>Usuario</Form.Label>
-              <Form.Control
-                className="form-input"
-                type="text"
-                placeholder="Escribe tu correo"
-              />
-            </Form.Group>
-            <Form.Group
-              className="mb-3 form-group"
-              controlId="formBasicPassword"
-            >
-              <Form.Label>Contraseña</Form.Label>
-              <Form.Control
-                className="form-input"
-                type="password"
-                placeholder="Escribe contraseña"
-              />
-            </Form.Group>
-            <Form.Group
-              className="mb-3 form-group"
-              controlId="formBasicPassword"
-            >
-            </Form.Group>
-            <Form.Group
-              className="mb-3 form-group"
-              controlId="formBasicCheckbox"
-            ></Form.Group>
-            <Button variant="primary" type="button" onClick={fetchExample}>
-              Ingresar
-            </Button>
-          </Form>
-          </>      
-
-   
-
+      <Form>
+        <Form.Group className="mb-3 form-group" controlId="formBasicName">
+          <Form.Label>Correo</Form.Label>
+          <Form.Control
+            className="form-input"
+            type="text"
+            placeholder="Escribe tu correo"
+            onChange={handleChangeEmail}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3 form-group" controlId="formBasicPassword">
+          <Form.Label>Contraseña</Form.Label>
+          <Form.Control
+            className="form-input"
+            type="password"
+            placeholder="Escribe contraseña"
+            onChange={handleChangePassword}
+          />
+        </Form.Group>
+        <Button variant="primary" type="button" onClick={fetchExample}>
+          Ingresar
+        </Button>
+      </Form>
+    </>
   );
 }
 

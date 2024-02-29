@@ -12,6 +12,10 @@ h1 {
   text-align: center;
 }
 
+.col-center {
+  text-align: center;
+}
+
 .form-group {
   display: -webkit-box;
   display: flex;
@@ -34,7 +38,7 @@ h1 {
   letter-spacing: .2em;
   }
   .two .form-group label {
-  color: #ecdfdf;
+    color: #ecdfdf;
   }
   .form-group input, .form-group .form-input, .form-group select {
     outline: none;
@@ -57,10 +61,10 @@ h1 {
     color: rgba(0, 0, 0, 0.8);
   }
   .two .form-group input {
-    color: #f8f0f3;
+    color: #000000;
   }
   .form-group input:focus {
-    color: #FFFFFF;
+    color: #000000;
   }
   .form-group button {
     outline: none;
